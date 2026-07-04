@@ -79,6 +79,10 @@ function consultar_status(){
         sshd
 }
 
+function consultar_estado_fail2ban(){
+    watch -n 1 fail2ban-client status
+}
+
 ######
 # Loop principal
 ######
@@ -89,14 +93,11 @@ while true; do
     echo "   CONFIGURACIÓN INICIAL PARA DEFENSA    "
     echo "========================================"
     echo "1) Instalar las herramientas fail2ban, firewall-cmd."
-    echo "2) Habilitar los servicios (firewalld, fail2ban, httpd, sshd)"
-    echo "3) Consultar estado de los servicios con systemd"
-    echo "4) Aplicar las reglas de firewalld"
-    echo "5) Aplicar las reglas de fail2ban"
-    echo "6) Aplicar todas las reglas de fail2ban, firewalld"
-    echo "7) Deshabilitar fail2ban"
-    echo "8) Deshabilitar reglas de firewalld"
-    echo "9) Deshabilitar todos los servicios de seguridad"
+    echo "2) Habilitar los servicios (firewalld, fail2ban, httpd, sshd)."
+    echo "3) Consultar estado de los servicios con systemd."
+    echo "4) Consultar estado de fail2ban."
+    echo "5) Aplicar las reglas de fail2ban."
+    echo "6) Detener fail2ban."
     echo "0) Salir"
     echo "========================================"
     read -p "Seleccione una opción [0-9]: " opcion
@@ -105,12 +106,9 @@ while true; do
         1) instalar_dependencias;;
         2) habilitar_servicios;;
         3) consultar_status;;
-        4) ;;
+        4) consultar_estado_fail2ban;;
         5) ;;
-        6) ;;
-        7) ;;
-        8) ;;
-        9) ;;
+        6) deshabilitar_seguridad;;
         0)  echo "Saliendo..."
             exit 0
             ;;
